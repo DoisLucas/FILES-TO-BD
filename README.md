@@ -5,3 +5,5 @@ em uma Query SQL e adicionando no banco de dados, no exemplo acima utilizo o Pos
 
 OBS: A estrutura do projeto e as credenciais do banco deve ser mudadas de acordo com as suas necessidades.
 Segue junto ao projeto, o arquivo .sql da tabela utilizada e o arquivo .txt utilizado.
+
+Video funcionamento: https://drive.google.com/open?id=1G11KnGuCl9MEc3WNuDqIh0C7YAu6qGaW
