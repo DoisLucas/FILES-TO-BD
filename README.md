@@ -6,4 +6,4 @@ em uma Query SQL e adicionando no banco de dados, no exemplo acima utilizo o Pos
 OBS: A estrutura do projeto e as credenciais do banco deve ser mudadas de acordo com as suas necessidades.
 Segue junto ao projeto, o arquivo .sql da tabela utilizada e o arquivo .txt utilizado.
 
-Video funcionamento: https://www.youtube.com/watch?v=JCFhfn2xbcg&t=8s
+Video funcionamento: https://www.youtube.com/watch?v=JCFhfn2xbcg
