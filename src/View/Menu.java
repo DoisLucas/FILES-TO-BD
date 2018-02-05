@@ -167,6 +167,7 @@ public class Menu extends javax.swing.JFrame {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
             esqdao.add_cliente(gerado);
+            gerado.clear();
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
