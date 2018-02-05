@@ -2,10 +2,10 @@
 
 **SOBRE:**
 
-> *Software capaz lê um arquivo **TXT**, tratar as linhas determinadas transformando em um Objeto Java e logo em seguida    transformando em
+> Software capaz lê um arquivo **TXT**, tratar as linhas determinadas transformando em um Objeto Java e logo em seguida    transformando em
 > uma Query **SQL** e adicionando no banco de dados, no    exemplo acima
 > utilizo o **PostgreSQL 10**. Testado também no **MySQL** sendo    necessário
-> apenas a importação da biblioteca **JDBC** do banco desejado.*
+> apenas a importação da biblioteca **JDBC** do banco desejado.
 
 **OBSERVAÇÃO:**
 
