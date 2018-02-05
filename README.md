@@ -13,11 +13,13 @@
 > acordo com as suas necessidades. Segue junto ao projeto, o arquivo
 > **.SQL** da tabela utilizada e o arquivo **.TXT** utilizado.
 
-## CODIGOS
+## CÓDIGOS
 
 **TABELA SQL:**
 
-       CREATE TABLE leitura.tabela_txt
+
+```SQL
+ CREATE TABLE leitura.tabela_txt
     (
       num_documento integer NOT NULL,
       cedente_documento character varying,
@@ -29,6 +31,8 @@
     WITH (
       OIDS=FALSE
     );
+```
+
 **TXT:**
 
     Relatorio de Pagamento de Boleto Bancario
@@ -53,6 +57,6 @@
     160 BB Victor 1115 1115
     170 Netshoes Mano 960 960
 
-## VIDEO DEMONSTRATIVO:
+## VÍDEO DEMONSTRATIVO:
 
 **[TXTstoBD Video Demonstração](https://www.youtube.com/watch?v=JCFhfn2xbcg)**
