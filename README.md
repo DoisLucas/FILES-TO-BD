@@ -3,14 +3,14 @@
 **UPDATE V1.1**
 
 >  - Agora é possivel adicionar varios arquivos **TXT** de uma só vez.
->  - As informações das operações de cada arquivo são guardadas em   um relátorio contendo data, horário, usuario, querys lançadas e possiveis erros capturados dentre outras informações essenciais.
+>  - As informações das operações de cada arquivo são guardadas em um relátorio contendo a data, horário, usuario, querys lançadas e possiveis erros capturados.
 
 
 **SOBRE:**
 
-> Software capaz de ler um arquivo **TXT**, tratar as linhas determinadas transformando em um Objeto Java e logo em seguida    transformando em
-> uma Query **SQL** e adicionando no banco de dados, no    exemplo acima é
-> utilizado o **PostgreSQL 10**. Testado também no **MySQL** sendo    necessário
+> Software capaz de ler arquivos **TXT**, tratar as linhas determinadas transformando em um Objeto Java e logo em seguida    transformando em
+> uma Query **SQL** e adicionando no banco de dados, no exemplo acima é
+> utilizado o **PostgreSQL 10**. Testado também no **MySQL** sendo necessário
 > apenas a importação da biblioteca **JDBC** do banco desejado.
 
 **OBSERVAÇÃO:**
@@ -39,11 +39,11 @@
     );
 ```
 
-**TXT:**
+**TXT 1:**
 
     Relatorio de Pagamento de Boleto Bancario
     Lançamentos baixados: 17	Valor total (Baixas): Indefinida
-    Lançamentos não baixados: 43
+    Lançamentos não baixados: 0
     NumeroDocumento     Cedente   Sacado   ValorDocumento   Valor Baixa
     10 Banese Pedro 1250 1250
     20 Caixa Lucas 300 300
@@ -62,6 +62,14 @@
     150 Banese Alex 942 942
     160 BB Victor 1115 1115
     170 Netshoes Mano 960 960
+    
+**TXT 2:**
+
+    Relatorio de Pagamento de Boleto Bancario
+    Lançamentos baixados: 1 Valor total (Baixas): Indefinida
+    Lançamentos não baixados: 0
+    NumeroDocumento     Cedente   Sacado   ValorDocumento   Valor Baixa
+    00007 Google Maria 8500 8500
 
 ## VÍDEO DEMONSTRATIVO:
 
