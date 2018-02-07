@@ -1,5 +1,11 @@
 ## TXT FILES TO DATABASE
 
+**UPDATE V1.1**
+
+>  - Agora é possivel adicionar varios arquivos **TXT** de uma só vez.
+>  - As informações das operações de cada arquivo são guardadas em   um relátorio contendo data, horário, usuario, querys lançadas e possiveis erros capturados dentre outras informações essenciais.
+
+
 **SOBRE:**
 
 > Software capaz de ler um arquivo **TXT**, tratar as linhas determinadas transformando em um Objeto Java e logo em seguida    transformando em
