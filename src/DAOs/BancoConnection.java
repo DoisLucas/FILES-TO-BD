@@ -1,10 +1,17 @@
 package DAOs;
 
+import Beans.Sistema;
+import View.Menu;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,13 +26,23 @@ public class BancoConnection {
 
     public static Connection getConnection() throws Exception {
 
+        FileWriter WR = null;
         try {
+            WR = new FileWriter(Sistema.getInstance().getArquivo(), true);
+        } catch (IOException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        BufferedWriter BW = new BufferedWriter(WR);
 
+        try {
             Class.forName(DRIVER);
             return DriverManager.getConnection(URL, USER, PASS);
 
         } catch (ClassNotFoundException | SQLException ex) {
+            
+            BW.write(ex.toString());
             throw new Exception("Erro na conexão", ex);
+
         }
 
     }

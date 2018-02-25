@@ -1,4 +1,4 @@
-Relatorio de Pagamento de Boleto Bancario
+﻿Relatorio de Pagamento de Boleto Bancario
 Lançamentos baixados: 17	Valor total (Baixas): Indefinida
 Lançamentos não baixados: 43
 NumeroDocumento     Cedente   Sacado   ValorDocumento   Valor Baixa

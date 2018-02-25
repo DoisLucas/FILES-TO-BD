@@ -6,15 +6,25 @@
 package View;
 
 import Beans.Esqueleto;
+import Beans.Sistema;
 import DAOs.BancoConnection;
 import DAOs.EsqueletoDAO;
+import java.awt.Desktop;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -23,7 +33,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Menu extends javax.swing.JFrame {
 
-    ArrayList<Esqueleto> gerado = new ArrayList<Esqueleto>();
+    ArrayList<Esqueleto> gerado = new ArrayList<>();
+    ArrayList<String> files = new ArrayList<>();
+    DefaultListModel model = new DefaultListModel();
+    JFileChooser arquivo = new JFileChooser();
 
     /**
      * Creates new form Menu
@@ -33,6 +46,7 @@ public class Menu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setResizable(false);
         this.setLocationRelativeTo(null);
+        listt.setSelectedIndex(-1);
     }
 
     /**
@@ -44,44 +58,71 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        dada = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        GerarBtn = new javax.swing.JButton();
+        SelecionarBtn = new javax.swing.JButton();
+        TesteConexaoBtn = new javax.swing.JButton();
         teste = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listt = new javax.swing.JList<>();
+        jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        log = new javax.swing.JButton();
+
+        jLabel4.setText("jLabel4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Gerar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        GerarBtn.setText("Gerar");
+        GerarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                GerarBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Selecionar Arquivo:");
+        SelecionarBtn.setText("Selecionar Arquivo:");
+        SelecionarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SelecionarBtnActionPerformed(evt);
+            }
+        });
+
+        TesteConexaoBtn.setText("Testar Conexão Banco");
+        TesteConexaoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TesteConexaoBtnActionPerformed(evt);
+            }
+        });
+
+        teste.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        teste.setForeground(new java.awt.Color(0, 51, 51));
+        teste.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("TXTtoBD");
+
+        listt.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listtValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listt);
+
+        jButton2.setText("Limpar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        dada.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-
-        jButton3.setText("Testar Conexão Banco");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        log.setText("Ver LOG");
+        log.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                logActionPerformed(evt);
             }
         });
-
-        teste.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        teste.setForeground(new java.awt.Color(0, 51, 51));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("LEITURATXT");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,90 +130,183 @@ public class Menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(63, 63, 63))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SelecionarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TesteConexaoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(teste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(log, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(dada, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(teste, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(43, 43, 43))
+                        .addComponent(GerarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dada, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addComponent(teste, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(SelecionarBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(TesteConexaoBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(teste, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GerarBtn)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(log)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jLabel3))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JFileChooser arquivo = new JFileChooser();
-        FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("Arquivos TXT", "txt");
-        arquivo.addChoosableFileFilter(filtroPDF);
+    private void SelecionarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionarBtnActionPerformed
+        int igual = 0;
+
+        FileNameExtensionFilter filtroTXT = new FileNameExtensionFilter("Arquivos TXT", "txt");
+        arquivo.addChoosableFileFilter(filtroTXT);
+        arquivo.setMultiSelectionEnabled(true);
         arquivo.setAcceptAllFileFilterUsed(false);
+
         if (arquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            dada.setText(arquivo.getSelectedFile().getAbsolutePath());
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        ArrayList<String> a = null;
-        File f = new File(dada.getText());
-        String text = "";
-
-        if (f.exists() && !f.isDirectory()) {
-            a = this.retornoArray(f);
+            for (File selectedFile : arquivo.getSelectedFiles()) {
+                if (listt.getModel().getSize() != 0) {
+                    for (int i = 0; i < listt.getModel().getSize(); i++) {
+                        Object item = listt.getModel().getElementAt(i);
+                        if (selectedFile.getPath().equalsIgnoreCase(item.toString())) {
+                            igual = 1;
+                        }
+                    }
+                    if (igual != 1) {
+                        model.addElement(selectedFile);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "ERROR: ARQUIVO SELECIONADO JÁ EXISTENTE!");
+                    }
+                } else {
+                    model.addElement(selectedFile);
+                }
+            }
+            listt.setModel(model);
         }
+    }//GEN-LAST:event_SelecionarBtnActionPerformed
 
-        if (a != null) {
-            for (int i = 4; i < a.size(); i++) {
-                System.out.println("Linha pegada: " + a.get(i));
-                String[] arrayobj = a.get(i).split(" ");
+    private void GerarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GerarBtnActionPerformed
 
-                Esqueleto esq = new Esqueleto(Integer.parseInt(arrayobj[0]), arrayobj[1], arrayobj[2], Float.parseFloat(arrayobj[3]),
-                        Float.parseFloat(arrayobj[4]));
+        for (int i = 0; i < listt.getModel().getSize(); i++) {
 
-                gerado.add(esq);
-
-            }
-
-            System.out.println("Numeros de registros capturados: " + gerado.size());
-            for (Esqueleto esqueleto : gerado) {
-                System.out.println(esqueleto.toString());
-            }
-
-            EsqueletoDAO esqdao = null;
+            FileWriter WR = null;
             try {
-                esqdao = new EsqueletoDAO();
-            } catch (Exception ex) {
+                WR = new FileWriter(Sistema.getInstance().getArquivo(), true);
+            } catch (IOException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
-            esqdao.add_cliente(gerado);
-            gerado.clear();
+            BufferedWriter BW = new BufferedWriter(WR);
+            Object item = listt.getModel().getElementAt(i);
+
+            Calendar cal = new GregorianCalendar();
+
+            try {
+                BW.newLine();
+                BW.write(("\t Data/Hora: " + cal.getTime().toString()));
+                BW.write("\tArquivo: " + item);
+                BW.newLine();
+                BW.newLine();
+            } catch (IOException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ArrayList<String> a = null;
+
+            File f = new File(item.toString());
+
+            if (f.exists() && !f.isDirectory()) {
+                a = this.retornoArray(f);
+            }
+
+            if (a.size() != 0) {
+
+                for (int s = 4; s < a.size(); s++) {
+                    String[] arrayobj = a.get(s).split(" ");
+                    try {
+                        Esqueleto esq = new Esqueleto(Integer.parseInt(arrayobj[0]), arrayobj[1], arrayobj[2], Float.parseFloat(arrayobj[3]),
+                                Float.parseFloat(arrayobj[4]));
+                        gerado.add(esq);
+                    } catch (NumberFormatException e) {
+                        try {
+                            BW.write(e.toString());
+                        } catch (IOException ex) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+
+                try {
+                    BW.newLine();
+                    BW.write("Querys lançadas: " + gerado.size() + "");
+                } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+                    EsqueletoDAO esqdao = null;
+
+                    try {
+                        esqdao = new EsqueletoDAO();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    try {
+                        ArrayList<String> aa = esqdao.add_cliente(gerado);
+                        BW.newLine();
+                        for (String string : aa) {
+
+                            BW.write(string);
+                            BW.newLine();
+                        }
+                        BW.newLine();
+                        BW.write("\n-------------------------------------------------------------------\n");
+                        BW.newLine();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    gerado.clear();
+                    BW.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    WR.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                System.out.println("Arquivo Vazio");
+            }
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+        limpar();
+    }//GEN-LAST:event_GerarBtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void TesteConexaoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TesteConexaoBtnActionPerformed
         Connection con = null;
         try {
             con = BancoConnection.getConnection();
@@ -181,29 +315,52 @@ public class Menu extends javax.swing.JFrame {
             teste.setText("FAIL");
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         BancoConnection.closeConnection(con);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_TesteConexaoBtnActionPerformed
+
+    private void listtValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listtValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listtValueChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        limpar();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logActionPerformed
+        mostrarlog();
+    }//GEN-LAST:event_logActionPerformed
+
+    public void mostrarlog() {
+        try {
+            Desktop.getDesktop().browse(Sistema.getInstance().getArquivo().toURI());
+        } catch (IOException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void limpar() {
+        model.clear();
+        listt.setModel(model);
+    }
 
     public ArrayList<String> retornoArray(File file) {
 
-        ArrayList<String> linhas = new ArrayList<String>();
-
+        ArrayList<String> linhas = new ArrayList<>();
         //Criamos um scanner, para ler do arquivo.
-        Scanner scan = null;
+        Scanner input = null;
         try {
-            scan = new Scanner(file);
+            input = new Scanner(file);
             //Enquanto o arquivo tiver linhas
-            while (scan.hasNextLine()) {
+            while (input.hasNextLine()) {
                 //Lemos a linha
-                linhas.add(scan.nextLine());
+                linhas.add(input.nextLine());
             }
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
             //Fechamos o arquivo
-            if (scan != null) {
-                scan.close();
+            if (input != null) {
+                input.close();
             }
         }
         //Retornamos o texto lido.
@@ -254,11 +411,16 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel dada;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton GerarBtn;
+    private javax.swing.JButton SelecionarBtn;
+    private javax.swing.JButton TesteConexaoBtn;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listt;
+    private javax.swing.JButton log;
     private javax.swing.JLabel teste;
     // End of variables declaration//GEN-END:variables
 }

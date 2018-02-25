@@ -6,6 +6,7 @@
 package DAOs;
 
 import Beans.Esqueleto;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -23,14 +24,15 @@ public class EsqueletoDAO {
         con = BancoConnection.getConnection();
     }
 
-    public boolean add_cliente(ArrayList<Esqueleto> array) {
+    public ArrayList<String> add_cliente(ArrayList<Esqueleto> array) throws IOException {
 
-        String sql = "INSERT INTO leitura.tabela_txt (num_documento, cedente_documento, sacado_documento, valor_documento, valor_baixa) VALUES (?,?,?,?,?)";
-
+        ArrayList<String> a = new ArrayList<>();
+        String sql = "INSERT INTO leitura.tabela_txt (num_documento, cedente_documento, sacado_documento, "
+                + "valor_documento, valor_baixa) VALUES (?,?,?,?,?)";
         PreparedStatement stmt = null;
-
+        System.out.println("Querys Lançadas: ");
+        
         try {
-
             for (Esqueleto esqueleto : array) {
                 stmt = con.prepareStatement(sql);
                 stmt.setInt(1, esqueleto.getNum_domcumento());
@@ -38,15 +40,15 @@ public class EsqueletoDAO {
                 stmt.setString(3, esqueleto.getSacado_documento());
                 stmt.setFloat(4, esqueleto.getValor_documento());
                 stmt.setFloat(5, esqueleto.getValor_baixa());
-                System.out.println(stmt);
+                System.out.println(stmt.toString());
+                a.add(stmt.toString());
                 stmt.executeUpdate();
             }
 
-            return true;
+            return a;
         } catch (SQLException ex) {
-            System.err.println("Erro: " + ex);
-            //JOptionPane.showMessageDialog(Singleton.getInstancia().getEntrar(), "Alerta: " + ex);
-            return false;
+            a.add(ex.toString());
+            return a;
         } finally {
             BancoConnection.closeConnection(con, stmt);
         }
