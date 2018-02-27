@@ -14,8 +14,8 @@ import java.io.File;
 public class Sistema {
 
     public static final String NomeDoUsuario = System.getProperty("user.name");
-    //public static final String CaminhoAreaDeTrabalho = "C:/Users/" + NomeDoUsuario + "/Documents/";
-    public static final String CaminhoAreaDeTrabalho = "C:/Users/Pichau/Documents/";
+    public static final String CaminhoAreaDeTrabalho = "C:/Users/" + NomeDoUsuario + "/Documents/";
+    //public static final String CaminhoAreaDeTrabalho = "C:/Users/Pichau/Documents/";
     public static File Arquivo = new File(CaminhoAreaDeTrabalho + "TxtToBDLOG.txt");
 
     private Sistema() {
