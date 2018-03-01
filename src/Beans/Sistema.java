@@ -9,8 +9,8 @@ import java.io.File;
 public class Sistema {
 
     public static final String NomeDoUsuario = System.getProperty("user.name");
-    //public static final String CaminhoAreaDeTrabalho = "C:/Users/" + NomeDoUsuario + "/Documents/TXTtoBDLOG/";
-    public static final String CaminhoAreaDeTrabalho = "C:/Users/Pichau/Documents/TXTtoBDLOG/";
+    public static final String CaminhoAreaDeTrabalho = "C:/Users/" + NomeDoUsuario + "/Documents/TXTtoBDLOG/";
+    //public static final String CaminhoAreaDeTrabalho = "C:/Users/Pichau/Documents/TXTtoBDLOG/";
     public String NomeDoArquivo = "TXTtoBDLOG0.txt";
     public File Arquivo = new File(CaminhoAreaDeTrabalho + NomeDoArquivo);
 
