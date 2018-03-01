@@ -8,7 +8,7 @@
 **UPDATE V1.1**
 
 >  - Agora é possivel adicionar varios arquivos **TXT** de uma só vez.
->  - As informações das operações de cada arquivo são guardadas em um relátorio contendo a data, horário, usuario, querys lançadas e possiveis erros capturados.
+>  - As informações das operações de cada arquivo são guardadas em um LOG (relátorio contendo a data, horário, usuario, querys lançadas e possiveis erros capturados).
 
 
 **SOBRE:**
