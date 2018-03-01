@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Beans;
 
 import java.io.File;
@@ -14,12 +9,21 @@ import java.io.File;
 public class Sistema {
 
     public static final String NomeDoUsuario = System.getProperty("user.name");
-    public static final String CaminhoAreaDeTrabalho = "C:/Users/" + NomeDoUsuario + "/Documents/";
-    //public static final String CaminhoAreaDeTrabalho = "C:/Users/Pichau/Documents/";
-    public static File Arquivo = new File(CaminhoAreaDeTrabalho + "TxtToBDLOG.txt");
+    //public static final String CaminhoAreaDeTrabalho = "C:/Users/" + NomeDoUsuario + "/Documents/TXTtoBDLOG/";
+    public static final String CaminhoAreaDeTrabalho = "C:/Users/Pichau/Documents/TXTtoBDLOG/";
+    public String NomeDoArquivo = "TXTtoBDLOG0.txt";
+    public File Arquivo = new File(CaminhoAreaDeTrabalho + NomeDoArquivo);
 
     private Sistema() {
-        
+
+    }
+
+    public String getNomeDoArquivo() {
+        return NomeDoArquivo;
+    }
+
+    public void setNomeDoArquivo(String NomeDoArquivo) {
+        this.NomeDoArquivo = NomeDoArquivo;
     }
 
     public static Sistema getInstance() {

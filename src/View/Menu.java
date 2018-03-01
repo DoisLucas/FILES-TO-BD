@@ -23,6 +23,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -31,6 +32,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author plocabral
  */
+
 public class Menu extends javax.swing.JFrame {
 
     ArrayList<Esqueleto> gerado = new ArrayList<>();
@@ -43,10 +45,13 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        ImageIcon Icon = (new ImageIcon(Menu.class.getResource("/Resources/database.png")));
         this.setLocationRelativeTo(null);
         setResizable(false);
         this.setLocationRelativeTo(null);
         listt.setSelectedIndex(-1);
+        this.setTitle("Conversor TXT/SQLQuerys");
+        this.setIconImage(Icon.getImage());
     }
 
     /**
@@ -99,9 +104,9 @@ public class Menu extends javax.swing.JFrame {
         teste.setForeground(new java.awt.Color(0, 51, 51));
         teste.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("TXTtoBD");
+        jLabel2.setText("TXT TO BD");
 
         listt.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -282,7 +287,7 @@ public class Menu extends javax.swing.JFrame {
                             BW.newLine();
                         }
                         BW.newLine();
-                        BW.write("\n-------------------------------------------------------------------\n");
+                        BW.write("\n\t\t-------------------------------------------------------------------\n");
                         BW.newLine();
                     } catch (IOException ex) {
                         Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
