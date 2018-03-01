@@ -1,5 +1,10 @@
 ## TXT FILES TO DATABASE
 
+**UPDATE V1.2**
+
+>  - Foi adicionado um controle do tamanho dos arquivos de LOG, ao atingir determinado tamanho um novo arquivo de LOG é gerado, 
+> evitando ter um único e gigantesco arquivo, o que dificultava a consulta do mesmo.
+
 **UPDATE V1.1**
 
 >  - Agora é possivel adicionar varios arquivos **TXT** de uma só vez.
