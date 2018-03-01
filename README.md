@@ -2,11 +2,10 @@
 
 **UPDATE V1.2**
 
->  - Foi adicionado um controle do tamanho dos arquivos de LOG, ao atingir determinado tamanho um novo arquivo de LOG é gerado, 
-> evitando ter um único e gigantesco arquivo, o que dificultaria a consulta do mesmo.
+  - Foi adicionado um controle do tamanho dos arquivos de LOG, ao atingir determinado tamanho um novo arquivo de LOG é gerado, 
+ evitando ter um único e gigantesco arquivo, o que dificultaria a consulta do mesmo.
 
-**UPDATE V1.1**
-
+>**UPDATE V1.1**
 >  - Agora é possivel adicionar varios arquivos **TXT** de uma só vez.
 >  - As informações das operações de cada arquivo são guardadas em um LOG (relátorio contendo a data, horário, usuario, querys lançadas e possiveis erros capturados).
 
