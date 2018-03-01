@@ -80,5 +80,3 @@
 >**[TXTsToBD Vídeo Demonstração Versão 1.1](https://www.youtube.com/watch?v=3gHM9sW4B20)**
 
 
->**[TXTsToBD Vídeo Demonstração Versão 1.0](https://www.youtube.com/watch?v=JCFhfn2xbcg)** 
-
