@@ -14,10 +14,11 @@
 > acordo com as suas necessidades. Segue junto ao projeto, o arquivo
 > **.SQL** da tabela utilizada e o arquivo **.TXT** utilizado.
 
-**UPDATE V1.2**
+**UPDATES:**
 
-  - Foi adicionado um controle do tamanho dos arquivos de LOG, ao atingir determinado tamanho um novo arquivo de LOG é gerado, 
- evitando ter um único e gigantesco arquivo, o que dificultaria a consulta do mesmo.
+>**UPDATE V1.2**
+>  - Foi adicionado um controle do tamanho dos arquivos de LOG, ao atingir determinado tamanho um novo arquivo de LOG é gerado, 
+> evitando ter um único e gigantesco arquivo, o que dificultaria a consulta do mesmo.
 
 >**UPDATE V1.1**
 >  - Agora é possivel adicionar varios arquivos **TXT** de uma só vez.
