@@ -1,0 +1,3 @@
+carro;123;Ferrari;Vermelha;2016;480;2500000.0
+pessoa;076;1245;19;Pedro
+venda;076;123;2018-05-06 12:28

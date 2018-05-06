@@ -20,9 +20,9 @@ import java.util.logging.Logger;
 public class BancoConnection {
 
     private static final String DRIVER = "org.postgresql.Driver";
-    private static final String URL = "jdbc:postgresql://localhost:5432/LeituraTXT";
+    private static final String URL = "jdbc:postgresql://localhost:5432/rentcar";
     private static final String USER = "postgres";
-    private static final String PASS = "*************";
+    private static final String PASS = "********";
 
     public static Connection getConnection() throws Exception {
 

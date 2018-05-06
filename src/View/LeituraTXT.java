@@ -44,8 +44,9 @@ public class LeituraTXT {
         e atribuindo para as variaveis anteriores
          */
         for (File arquivo : arquivos) {
-            if (Integer.parseInt(arquivo.getName().substring(10, 11)) > maior_numero) {
-                maior_numero = Integer.parseInt(arquivo.getName().substring(10, 11));
+
+            if (Integer.parseInt(arquivo.getName().substring(8, 9)) > maior_numero) {
+                maior_numero = Integer.parseInt(arquivo.getName().substring(8, 9));
                 ultimo_arquivo = arquivo;
             }
         }
@@ -58,7 +59,8 @@ public class LeituraTXT {
 
         if (ultimo_arquivo != null) {
 
-            /*Se o tamanho do ultimo arquivo que pegamos for maior que determinado valor que definimos posteriormente,
+            /*
+            Se o tamanho do ultimo arquivo que pegamos for maior que determinado valor que definimos posteriormente,
             ele cria um novo arquivo na mesma pasta, e assim sucessivamente
             
             OBS: Foi defenido que a verificação do tamanho do arquivo LOG e o gerencimaneto não seja
@@ -66,21 +68,23 @@ public class LeituraTXT {
             
             .lenght retorna o tamanho em bytes, passo o valor para o metodo bytestomegabytes que retorna 
             em megabytes                    
-             */
-            //Caso o ultimo_arquivo seja maior que 25 megas, ele cria um novo
+             
+            Caso o ultimo_arquivo seja maior que 25 megas, ele cria um novo      
+            */
+            
             if (bytetomegabytes(ultimo_arquivo.length()) >= 25) {
 
                 System.out.println("Arquivo mais atual cheio: " + ultimo_arquivo.getName());
-                System.out.println("Endereço do proximo LOG: TXTtoBDLOG" + (maior_numero + 1) + ".txt");
-                Sistema.getInstance().setNomeDoArquivo("TXTtoBDLOG" + (maior_numero + 1) + ".txt");
-                File new_file = new File(CaminhoAreaDeTrabalho + "TXTtoBDLOG" + (maior_numero + 1) + ".txt");
+                System.out.println("Endereço do proximo LOG: FILEtoBD" + (maior_numero + 1) + ".txt");
+                Sistema.getInstance().setNomeDoArquivo("FILEtoBD" + (maior_numero + 1) + ".txt");
+                File new_file = new File(CaminhoAreaDeTrabalho + "FILEtoBD" + (maior_numero + 1) + ".txt");
                 new_file.createNewFile();
 
                 Sistema.getInstance().setArquivo(new_file);
                 Sistema.getInstance().setNomeDoArquivo(new_file.getName());
 
             }
-
+            
         }
 
         //Inicializando a tela

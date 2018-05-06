@@ -5,10 +5,9 @@
  */
 package View;
 
-import Beans.Esqueleto;
 import Beans.Sistema;
 import DAOs.BancoConnection;
-import DAOs.EsqueletoDAO;
+import DAOs.InsercaoDAO;
 import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -32,10 +31,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author plocabral
  */
-
 public class Menu extends javax.swing.JFrame {
 
-    ArrayList<Esqueleto> gerado = new ArrayList<>();
     ArrayList<String> files = new ArrayList<>();
     DefaultListModel model = new DefaultListModel();
     JFileChooser arquivo = new JFileChooser();
@@ -50,7 +47,7 @@ public class Menu extends javax.swing.JFrame {
         setResizable(false);
         this.setLocationRelativeTo(null);
         listt.setSelectedIndex(-1);
-        this.setTitle("Conversor TXT/SQLQuerys");
+        this.setTitle("Conversor FILE/SQLQuerys");
         this.setIconImage(Icon.getImage());
     }
 
@@ -106,7 +103,7 @@ public class Menu extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("TXT TO BD");
+        jLabel2.setText("FILE TO BD");
 
         listt.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -133,26 +130,30 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(63, 63, 63))
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SelecionarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TesteConexaoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(teste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(log, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(GerarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(SelecionarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TesteConexaoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(teste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(log, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(GerarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +185,7 @@ public class Menu extends javax.swing.JFrame {
     private void SelecionarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionarBtnActionPerformed
         int igual = 0;
 
-        FileNameExtensionFilter filtroTXT = new FileNameExtensionFilter("Arquivos TXT", "txt");
+        FileNameExtensionFilter filtroTXT = new FileNameExtensionFilter("Arquivos de Texto", "txt", "json", ".doc", ".xml", ".ret", ".db", ".html");
         arquivo.addChoosableFileFilter(filtroTXT);
         arquivo.setMultiSelectionEnabled(true);
         arquivo.setAcceptAllFileFilterUsed(false);
@@ -217,97 +218,92 @@ public class Menu extends javax.swing.JFrame {
         for (int i = 0; i < listt.getModel().getSize(); i++) {
 
             FileWriter WR = null;
+            Object item = null;
+            BufferedWriter BW = null;
+            ArrayList<String> a = null;
+            ArrayList<String> Gerados = new ArrayList<>();
+
             try {
+
                 WR = new FileWriter(Sistema.getInstance().getArquivo(), true);
-            } catch (IOException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            BufferedWriter BW = new BufferedWriter(WR);
-            Object item = listt.getModel().getElementAt(i);
+                BW = new BufferedWriter(WR);
+                item = listt.getModel().getElementAt(i);
 
-            Calendar cal = new GregorianCalendar();
+                Calendar cal = new GregorianCalendar();
 
-            try {
                 BW.newLine();
                 BW.write(("\t Data/Hora: " + cal.getTime().toString()));
                 BW.write("\tArquivo: " + item);
                 BW.newLine();
                 BW.newLine();
+
+                File f = new File(item.toString());
+
+                //Pego cada linha do arquivo, e adiciono no array
+
+                if (f.exists() && !f.isDirectory()) {
+                    a = this.retornoArray(f);
+                }
+
+                if (a.size() != 0) {
+
+                    System.out.println("\nArquivo: " + item.toString());
+                    System.out.println("Querys Lançadas: ");
+                    
+                    for (int k = 0; k < a.size(); k++) {
+                        
+                        //Pra cada linha do array, separo o texto pelo ; e passo pra um array de String
+                        //onde cada posição desse array vai ser um atributo daquela linha (Objeto).
+                        
+                        String[] arrayobj = a.get(k).split(";");
+
+                        try {
+
+                            InsercaoDAO idao = new InsercaoDAO();
+
+                            if (arrayobj[0].equals("carro")) {
+                                Gerados.add(idao.add_carro(Integer.parseInt(arrayobj[1]),
+                                        arrayobj[2], arrayobj[3], Integer.parseInt(arrayobj[4]),
+                                        Integer.parseInt(arrayobj[5]), Double.parseDouble(arrayobj[6])));
+                            } else if (arrayobj[0].equals("pessoa")) {
+                                Gerados.add(idao.add_pessoa(Integer.parseInt(arrayobj[1]), Integer.parseInt(arrayobj[2]),
+                                        Integer.parseInt(arrayobj[3]), arrayobj[4]));
+                            } else if (arrayobj[0].equals("venda")) {
+                                Gerados.add(idao.add_venda(Integer.parseInt(arrayobj[1]), Integer.parseInt(arrayobj[2]), arrayobj[3]));
+                            }
+
+                        } catch (Exception ex) {
+                            BW.write(ex.toString());
+                        }
+
+                    }
+
+                    BW.newLine();
+                    BW.write("Querys lançadas: " + Gerados.size() + "");
+                    BW.newLine();
+
+                    for (String string : Gerados) {
+
+                        BW.write(string);
+                        BW.newLine();
+                    }
+
+                    BW.newLine();
+                    BW.write("\n\t\t-------------------------------------------------------------------\n");
+                    BW.newLine();
+
+                    Gerados.clear();
+                    BW.close();
+
+                    WR.close();
+
+                } else {
+                    System.out.println("Arquivo Vazio");
+                }
             } catch (IOException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            ArrayList<String> a = null;
-
-            File f = new File(item.toString());
-
-            if (f.exists() && !f.isDirectory()) {
-                a = this.retornoArray(f);
-            }
-
-            if (a.size() != 0) {
-
-                for (int s = 4; s < a.size(); s++) {
-                    String[] arrayobj = a.get(s).split(" ");
-                    try {
-                        Esqueleto esq = new Esqueleto(Integer.parseInt(arrayobj[0]), arrayobj[1], arrayobj[2], Float.parseFloat(arrayobj[3]),
-                                Float.parseFloat(arrayobj[4]));
-                        gerado.add(esq);
-                    } catch (NumberFormatException e) {
-                        try {
-                            BW.write(e.toString());
-                        } catch (IOException ex) {
-                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                }
-
-                try {
-                    BW.newLine();
-                    BW.write("Querys lançadas: " + gerado.size() + "");
-                } catch (IOException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                try {
-                    EsqueletoDAO esqdao = null;
-
-                    try {
-                        esqdao = new EsqueletoDAO();
-                    } catch (Exception ex) {
-                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    try {
-                        ArrayList<String> aa = esqdao.add_cliente(gerado);
-                        BW.newLine();
-                        for (String string : aa) {
-
-                            BW.write(string);
-                            BW.newLine();
-                        }
-                        BW.newLine();
-                        BW.write("\n\t\t-------------------------------------------------------------------\n");
-                        BW.newLine();
-                    } catch (IOException ex) {
-                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    gerado.clear();
-                    BW.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    WR.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                System.out.println("Arquivo Vazio");
-            }
         }
-
         limpar();
     }//GEN-LAST:event_GerarBtnActionPerformed
 
