@@ -61,7 +61,7 @@ CREATE TABLE public.venda
 )
 ```
 
-**ARQUIVO CONSUMIDO:**
+**ARQUIVO CONSUMIDO (Gerado com o Projeto [Python-OO-IO](https://github.com/DoisLucas/Python-OO-IO)):**
 
 ```
 carro;123;Ferrari;Vermelha;2016;480;2500000.0
