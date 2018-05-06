@@ -61,6 +61,15 @@ CREATE TABLE public.venda
 )
 ```
 
+**ARQUIVO CONSUMIDO:**
+
+```
+carro;123;Ferrari;Vermelha;2016;480;2500000.0
+pessoa;076;1245;19;Pedro
+venda;076;123;2018-05-06 12:28
+```
+
+
 **OBSERVAÇÃO:**
 
 >A estrutura do projeto e as credenciais do banco deve ser trocadas de acordo com as suas necessidades, assim como a importação da biblioteca JDBC do banco desejado.
